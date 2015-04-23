@@ -416,4 +416,18 @@ ngModel.$setViewValue(returnObj);
     }
   };
 }]);
-})();
+})();;angular.module('tink.timepicker').run(['$templateCache', function($templateCache) {
+  'use strict';
+
+  $templateCache.put('templates/tinkDatePickerRange.html',
+    "<div class=datepickerrange> <div class=\"pull-left datepickerrange-left\"> <div class=datepickerrange-header-left> <div class=pull-left> <button tabindex=-1 type=button class=\"btn pull-left\" ng-click=$selectPane(0)> <i class=\"fa fa-chevron-left\"></i> </button> </div> <div class=\"text-center clearfix\"> <label ng-bind=firstTitle></label> </div> </div> <div class=table-responsive> <table> <thead> <tr class=datepicker-days ng-bind-html=dayLabels> </tr> </thead> <tbody id=firstCal ng-bind-html=firstCal> </tbody> </table> </div> </div> <div class=\"pull-right datepickerrange-right\"> <div class=datepickerrange-header-right> <div class=pull-right> <button tabindex=-1 type=button class=\"btn pull-left\" ng-click=$selectPane(1)> <i class=\"fa fa-chevron-right\"></i> </button> </div> <div class=\"text-center clearfix\"> <label ng-bind=lastTitle></label> </div> </div> <div class=table-responsive> <table> <thead> <tr class=datepicker-days ng-bind-html=dayLabels></tr> </thead> <tbody id=secondCal ng-bind-html=secondCal> </tbody> </table> </div> </div> </div>"
+  );
+
+
+  $templateCache.put('templates/tinkDatePickerRangeInputs.html',
+    "<div class=\"datepicker-input-fields row no-gutter\"> <div class=col-sm-6> <input id=firstDateElem tabindex=-1 class=elem-one data-date data-format=00/00/0000 data-placeholder=dd/mm/jjjj tink-format-input ng-model=firstDate valid-name=first>\n" +
+    "<span class=datepicker-icon> <i class=\"fa fa-calendar\"></i> </span> </div> <div class=col-sm-6> <input id=lastDateElem tabindex=-1 class=elem-two data-date data-format=00/00/0000 data-placeholder=dd/mm/jjjj tink-format-input ctrl-model=dynamicName valid-name=last ng-model=lastDate>\n" +
+    "<span class=datepicker-icon> <i class=\"fa fa-calendar\"></i> </span> </div> </div>"
+  );
+
+}]);
