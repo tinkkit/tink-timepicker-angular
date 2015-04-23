@@ -27,12 +27,15 @@ module.exports = function(config) {
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-touch/angular-touch.js',
-      'src/scripts/controllers/format.js',
+      'bower_components/ng-file-upload/angular-file-upload.js',
+      'bower_components/ng-lodash/build/ng-lodash.js',
+      'bower_components/lodash/lodash.js',
+      'bower_components/Sortable/Sortable.js',
+      'src/scripts/directives/timepicker.js',
       'src/scripts/{,*/}*.js',
       'src/{,*/}',
       'test/mock/{,*/}*.js',
-      'test/spec/{,*/}*.js',
-      'src/templates/{,*/}*.html'
+      'test/spec/{,*/}*.js'
     ],
 
     // list of files / patterns to exclude
@@ -50,16 +53,8 @@ module.exports = function(config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: [
-      'PhantomJS'
+      'Chrome'
     ],
-    preprocessors:{
-      'src/templates/{,*/}*.html': 'html2js'
-    },
-    ngHtml2JsPreprocessor: {
-      stripPrefix: '../templates/',  // <-- change as needed for the project
-      // include beforeEach(module('templates')) in unit tests
-      moduleName: 'templates'
-    },
 
     // Which plugins to enable
     plugins: [
@@ -67,8 +62,7 @@ module.exports = function(config) {
       'karma-phantomjs-launcher',
       'karma-chrome-launcher',
       'karma-sauce-launcher',
-      'karma-coverage',
-      'karma-ng-html2js-preprocessor'
+      'karma-coverage'
     ],
 
     // Continuous Integration mode
