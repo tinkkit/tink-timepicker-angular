@@ -1,6 +1,6 @@
 # Tink timepicker Angular directive
 
-v1.0.1
+v1.0.2
 
 ## What is this repository for?
 
@@ -19,23 +19,29 @@ Tink is an in-house developed easy-to-use front-end framework for quick prototyp
 
 1. Go to the root of your project and type the following command in your terminal:
 
-  `bower install tink-timepicker-angular --save`
+   `bower install tink-timepicker-angular --save`
 
 2. Add the following files to your project:
 
-  `<link rel="stylesheet" href="bower_components/tink-core/dist/tink.css" />` (or one of the Tink themes)
+   `<link rel="stylesheet" href="bower_components/tink-core/dist/tink.css" />` (or one of the Tink themes)
 
-  `<script src="bower_components/tink-timepicker-angular/dist/tink-timepicker-angular.js"></script>`
+   `<script src="bower_components/tink-timepicker-angular/dist/tink-timepicker-angular.js"></script>`
+
+   `<script src="bower_components/tink-helper-safe-apply-angular/dist/tink-helper-safe-apply-angular.js"></script>`
+
+3. Add `tink.timepicker` to your app module's dependency.
+
+   `angular.module('myApp', ['tink.timepicker']);`
+
 
 
 ----------
 
 
+
 ## How to use
 
 ### tink-timepicker
-
-### Component
 
 ```html
 <tink-timepicker data-ng-model="selectedTime"></tink-timepicker>
@@ -46,6 +52,10 @@ Tink is an in-house developed easy-to-use front-end framework for quick prototyp
 Attr | Type | Default | Details
 --- | --- | --- | ---
 data-ng-model (required) | `object` | `''` | This variable holds a date object with the time.
+
+###Example
+
+A working example can be found in [the Tink documentation](http://tink.digipolis.be/#/docs/directives/timepicker#example).
 
 ## Contribution guidelines
 
