@@ -9,7 +9,7 @@
   return{
     restrict:'AE',
     //template:'<div style="background:white;"><span style="float:left;">--</span><div style="float:left;">:</div><span>--</span></div>',
-    template:'<div class="timepicker"><input type="text" ng-model="ngModel" /><span class="timepicker-later" role="spinbutton"></span><span class="timepicker-earlier" role="spinbutton"></span></div>',
+    template:'<div class="timepicker"><input type="text" ng-model="ngModel"/><span class="timepicker-later" role="spinbutton"></span><span class="timepicker-earlier" role="spinbutton"></span></div>',
     require:'ngModel',
     replace:true,
     scope:{
@@ -20,6 +20,14 @@
       var inputField = elem.find('input');
       // Needs to be fixed
       // elem = elem.find('input');
+      attr.$observe('disabled', function(val){
+        if(val || val == '' || (typeof val == 'string' && val.toLowerCase() == 'disabled') ){
+          inputField.attr('disabled','disabled');
+        }else{
+          inputField.removeAttr('disabled');
+        }
+      });
+
 
       var isNative = /(ip(a|o)d|iphone|android)/ig.test($window.navigator.userAgent) ;
       function isDateSupported() {
