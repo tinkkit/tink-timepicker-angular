@@ -21,7 +21,7 @@
       // Needs to be fixed
       // elem = elem.find('input');
       attr.$observe('disabled', function(val){
-        if(val || val == '' || (typeof val == 'string' && val.toLowerCase() == 'disabled') ){
+        if(val || val === '' || (typeof val === 'string' && val.toLowerCase() === 'disabled') ){
           inputField.attr('disabled','disabled');
         }else{
           inputField.removeAttr('disabled');
