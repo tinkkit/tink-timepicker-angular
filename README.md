@@ -52,9 +52,10 @@ Tink is an in-house developed easy-to-use front-end framework for quick prototyp
 Attr | Type | Default | Details
 --- | --- | --- | ---
 data-ng-model (required) | `object` | `''` | This variable holds a date object with the time.
-data-is-disabled | `boolean` | `false` | Whether the input field is disabled or not.
 
-###Example
+   Note: The Tink timepicker also works with the disabled attribute.
+
+### Example
 
 A working example can be found in [the Tink documentation](http://tink.digipolis.be/#/docs/directives/timepicker#example).
 
