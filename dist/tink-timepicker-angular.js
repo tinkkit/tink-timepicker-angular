@@ -53,10 +53,6 @@
       //   }
       // };
 
-      elem.bind('mousedown',function(){
-        return false;
-      });
-
       elem.find('.timepicker-later').bind('click',function(){
         if(selected === 1){
           addHour(1);
@@ -424,8 +420,7 @@ ngModel.$setViewValue(returnObj);
     }
   };
 }]);
-})();
-;angular.module('tink.timepicker').run(['$templateCache', function($templateCache) {
+})();;angular.module('tink.timepicker').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('templates/tinkDatePickerRange.html',
