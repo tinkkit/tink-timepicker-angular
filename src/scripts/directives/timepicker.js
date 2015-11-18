@@ -53,10 +53,6 @@
       //   }
       // };
 
-      elem.bind('mousedown',function(){
-        return false;
-      });
-
       elem.find('.timepicker-later').bind('click',function(){
         if(selected === 1){
           addHour(1);
