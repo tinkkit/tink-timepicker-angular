@@ -5,13 +5,13 @@
   } catch (e) {
     module = angular.module('tink.timepicker', ['tink.safeApply']);
   }
-  module.directive('tinkTimepicker',['$window','safeApply',function($window,safeApply){
+  module.directive('tinkTimepicker',['$window','safeApply','$timeout',function($window,safeApply,$timeout){
   return{
     restrict:'AE',
     //template:'<div style="background:white;"><span style="float:left;">--</span><div style="float:left;">:</div><span>--</span></div>',
     template:'<div class="timepicker"><input type="text" ng-model="ngModel"/><span class="timepicker-later" role="spinbutton"></span><span class="timepicker-earlier" role="spinbutton"></span></div>',
     require:'ngModel',
-    replace:true,
+    replace:false,
     scope:{
       ngModel:'='
     },
@@ -53,6 +53,10 @@
       //   }
       // };
 
+      elem.find('.timepicker-later').bind('mousedown',function(){
+        return false;
+      });
+
       elem.find('.timepicker-later').bind('click',function(){
         if(selected === 1){
           addHour(1);
@@ -65,35 +69,43 @@
       var bindEvent = function(){
         inputField.unbind('input').unbind('keydown').unbind('change').unbind('click').unbind('mousedown');
         inputField.keydown(function(e){
-          var keycode = e.which;
-          if((keycode > 47 && keycode <58) || (keycode >95 && keycode <106)){
-            if(selected === 1){
-              handleHour(keycode);
-            }else{
-              handleMinute(keycode);
+          safeApply(scope,function(){
+            ngModel.$setDirty();
+          })
+            var keycode = e.which;
+            if((keycode > 47 && keycode <58) || (keycode >95 && keycode <106)){
+              if(selected === 1){
+                handleHour(keycode);
+              }else{
+                handleMinute(keycode);
+              }
+            }else if(keycode === 39 && selected === 1){
+              selectMinute(true);
+            }else if(keycode === 37 && selected === 2){
+              selectHour(true);
+            }else if(keycode === 38){
+              if(selected === 1){
+                addHour(1);
+              }else if(selected === 2){
+                addMinute(1);
+              }
+            }else if(keycode === 40){
+              if(selected === 1){
+                addHour(-1);
+              }else if(selected === 2){
+                addMinute(-1);
+              }
             }
-          }else if(keycode === 39 && selected === 1){
-            selectMinute(true);
-          }else if(keycode === 37 && selected === 2){
-            selectHour(true);
-          }else if(keycode === 38){
-            if(selected === 1){
-              addHour(1);
-            }else if(selected === 2){
-              addMinute(1);
+            if(keycode !== 9){
+              return false;
             }
-          }else if(keycode === 40){
-            if(selected === 1){
-              addHour(-1);
-            }else if(selected === 2){
-              addMinute(-1);
-            }
-          }
-          if(keycode !== 9){
-            return false;
-          }
+
         });
       };
+
+      elem.find('.timepicker-earlier').bind('mousedown',function(){
+        return false;
+      });
 
       elem.find('.timepicker-earlier').bind('click',function(){
         if(selected === 1){
@@ -386,6 +398,15 @@
           setValue();
          }
       });
+
+          $(elem).on('focus', function() {
+            safeApply(scope,function(){
+              $timeout(function(){
+                selectHour();
+                inputField.focus();
+              },5);              
+            })
+          })
 
 
        inputField.on('blur', function() {
