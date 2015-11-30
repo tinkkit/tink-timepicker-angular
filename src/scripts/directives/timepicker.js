@@ -363,7 +363,7 @@
       };
       //reset();
 
-      scope.$watch('ngModel',function(newVal){
+     scope.$watch('ngModel',function(newVal){
         var date=null;
         var hour = null;
         var minute = null;
@@ -399,6 +399,36 @@
          }
       });
 
+        //format text going to user (model to view)
+      $(inputField).controller('ngModel').$formatters.push(function(value) {
+        var hour;
+        var min;
+        var time;
+        if(angular.isDate(value)){
+          hour = ('0'+value.getHours()).slice(-2);
+          min = ('0'+value.getMinutes()).slice(-2);
+          time = hour+':'+min;
+        }else{
+          time = value;
+        }
+        return time;
+      });
+
+      //format text from the user (view to model)
+      $(inputField).controller('ngModel').$parsers.push(function(value) {console.log(value)
+        var hour = parseInt(value.substr(0,2));
+        var minute = parseInt(value.substr(3,2));
+        var dObject;
+        if(angular.isDate(scope.ngModel)){
+          dObject = scope.ngModel;
+        }else{
+          dObject = new Date();
+        }
+        dObject.setHours(hour);
+        dObject.setMinutes(minute);
+        return dObject;
+      });
+
           $(elem).on('focus', function() {
             safeApply(scope,function(){
               $timeout(function(){
@@ -425,13 +455,15 @@
             returnObj.setHours(parseInt(hourString()));
             returnObj.setMinutes(parseInt(minString()));
             if(isNative && isDateSupported()){
-            var timeStr = hourString()+':'+minString()+':00';
-            timeStr.replace('-','0');
+              returnObj.setHours(hour);
+              returnObj.setMinutes(minute);
+            /*var timeStr = hourString()+':'+minString()+':00';
+            timeStr.replace('-','0');*/
             //ngModel.$setViewValue(timeStr);
           }else{
             //ngModel.$setViewValue(hourString()+':'+minString());
           }
-ngModel.$setViewValue(returnObj);
+            ngModel.$setViewValue(returnObj);
         }
 
             });
