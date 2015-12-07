@@ -24,7 +24,7 @@
 <script src="bower_components/tink-helper-safe-apply-angular/dist/tink-helper-safe-apply-angular.js"></script>
 <!-- endbower -->
 
-  <div class="container">
+  <div class="container" ng-controller="controller as ctrl">
     <h1>Timepicker Component</h1>
     <hr>
     <section class="panel">
@@ -63,6 +63,13 @@
       </div>
     </section>
   </div>
+
+  <script>
+  var app = angular.module('tink.timepicker',['tink.safeApply']).controller('controller',['$scope',function($scope){
+    $scope.selectedTime = "2015-01-20T12:32:48.05489"
+  }])
+  </script>
+
 
 <script src="scripts/directives/timepicker.js"></script>
 </body>
