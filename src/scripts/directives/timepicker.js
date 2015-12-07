@@ -376,19 +376,19 @@
           current.hour.start =  true;
           current.min.start = true;
           setValue();
-        }else if(angular.isDate(date) && date !== 'Invalid Date'){
+        }else if(angular.isDate(date) && date != 'Invalid Date'){
           hour = date.getHours();
           minute = date.getMinutes();
-        }else if(date !== 'Invalid Date' && typeof date === 'string'  && date.length === 5){
+        }else if(angular.isDate(new Date(date)) && new Date(date) != 'Invalid Date'){
+          hour = new Date(date).getHours();
+          minute = new Date(date).getMinutes();
+        }else if(date != 'Invalid Date' && typeof date === 'string'  && date.length >= 5){
           if(/^([01]\d|2[0-3]):?([0-5]\d)$/.test(date.substr(0,5))){
             hour = parseInt(date.substr(0,2));
             minute = parseInt(date.substr(3,2));
           }else{
             reset();
           }
-        }else if(angular.isDate(new Date(date)) && new Date(date) !== 'Invalid Date'){
-          hour = new Date(date).getHours();
-          minute = new Date(date).getMinutes();
         }else{
           reset();
         }
