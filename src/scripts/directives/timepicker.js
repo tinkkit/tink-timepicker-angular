@@ -9,7 +9,7 @@
   return{
     restrict:'AE',
     //template:'<div style="background:white;"><span style="float:left;">--</span><div style="float:left;">:</div><span>--</span></div>',
-    template:'<div class="timepicker"><input type="text" ng-model="ngModel"/><span class="timepicker-later" role="spinbutton"></span><span class="timepicker-earlier" role="spinbutton"></span></div>',
+    template:'<div class="timepicker"><input type="text" ng-model="ngModel"/><span class="timepicker-later" role="spinbutton"></span><span class="timepicker-earlier" role="spinbutton"></span><span class="x-button" style="position: absolute;top: 7px;right: 25px;" ng-click="setNull()">X</span></div>',
     require:'ngModel',
     replace:false,
     scope:{
@@ -230,6 +230,12 @@
         setValue(2);
       };
 
+      scope.setNull = function(){
+        if(!attr.disabled && attr.disabled !== ''){
+          scope.ngModel = null;
+        }        
+      }
+
       var setValue =  function(select){
         if(isNative && isDateSupported()){
           var timeStr = hourString()+':'+minString()+':00';
@@ -372,7 +378,7 @@
         }else {
           date = newVal;
         }
-        if(date === undefined){
+        if(date === undefined || date === null){
           current.hour.start =  true;
           current.min.start = true;
           setValue();
