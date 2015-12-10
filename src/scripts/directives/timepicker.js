@@ -9,7 +9,7 @@
   return{
     restrict:'AE',
     //template:'<div style="background:white;"><span style="float:left;">--</span><div style="float:left;">:</div><span>--</span></div>',
-    template:'<div class="timepicker"><input type="text" ng-model="ngModel"/><span class="timepicker-later" role="spinbutton"></span><span class="timepicker-earlier" role="spinbutton"></span><span class="x-button" style="position: absolute;top: 7px;right: 25px;" ng-click="setNull()">X</span></div>',
+    template:'<div class="timepicker"><input type="text" ng-model="ngModel"/><span class="timepicker-later" role="spinbutton"></span><span class="timepicker-earlier" role="spinbutton"></span><button class="btn-delete" data-ng-click="setNull()"><span class="sr-only">Leegmaken</span></button></div>',
     require:'ngModel',
     replace:false,
     scope:{
@@ -18,13 +18,16 @@
     link:function(scope,elem,attr,ngModel){
       var current = {hour:{num:0,reset:true,prev:-1,start:true},min:{num:0,reset:true,start:true}};
       var inputField = elem.find('input');
+      var clearBtn = elem.find('.upload-btn-delete');
       // Needs to be fixed
       // elem = elem.find('input');
       attr.$observe('disabled', function(val){
         if(val || val === '' || (typeof val === 'string' && val.toLowerCase() === 'disabled') ){
           inputField.attr('disabled','disabled');
+          clearBtn.addClass('hidden');
         }else{
           inputField.removeAttr('disabled');
+          clearBtn.removeClass('hidden');
         }
       });
 
@@ -71,7 +74,7 @@
         inputField.keydown(function(e){
           safeApply(scope,function(){
             ngModel.$setDirty();
-          })
+          });
             var keycode = e.which;
             if((keycode > 47 && keycode <58) || (keycode >95 && keycode <106)){
               if(selected === 1){
@@ -233,8 +236,8 @@
       scope.setNull = function(){
         if(!attr.disabled && attr.disabled !== ''){
           scope.ngModel = null;
-        }        
-      }
+        }
+      };
 
       var setValue =  function(select){
         if(isNative && isDateSupported()){
@@ -382,13 +385,13 @@
           current.hour.start =  true;
           current.min.start = true;
           setValue();
-        }else if(angular.isDate(date) && date != 'Invalid Date'){
+        }else if(angular.isDate(date) && date !== 'Invalid Date'){
           hour = date.getHours();
           minute = date.getMinutes();
-        }else if(angular.isDate(new Date(date)) && new Date(date) != 'Invalid Date'){
+        }else if(angular.isDate(new Date(date)) && new Date(date) !== 'Invalid Date'){
           hour = new Date(date).getHours();
           minute = new Date(date).getMinutes();
-        }else if(date != 'Invalid Date' && typeof date === 'string'  && date.length >= 5){
+        }else if(date !== 'Invalid Date' && typeof date === 'string'  && date.length >= 5){
           if(/^([01]\d|2[0-3]):?([0-5]\d)$/.test(date.substr(0,5))){
             hour = parseInt(date.substr(0,2));
             minute = parseInt(date.substr(3,2));
@@ -423,7 +426,7 @@
       });
 
       //format text from the user (view to model)
-      $(inputField).controller('ngModel').$parsers.push(function(value) {console.log(value)
+      $(inputField).controller('ngModel').$parsers.push(function(value) {
         var hour = parseInt(value.substr(0,2));
         var minute = parseInt(value.substr(3,2));
         var dObject;
@@ -437,17 +440,17 @@
         return dObject;
       });
 
-          $(elem).on('focus', function() {
-            safeApply(scope,function(){
-              $timeout(function(){
-                selectHour();
-                inputField.focus();
-              },5);              
-            })
-          })
+      $(elem).on('focus', function() {
+        safeApply(scope,function(){
+          $timeout(function(){
+            selectHour();
+            inputField.focus();
+          },5);
+        });
+      });
 
 
-       inputField.on('blur', function() {
+      inputField.on('blur', function() {
             safeApply(scope,function(){
 
         var time = inputField.val();
