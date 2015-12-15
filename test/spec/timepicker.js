@@ -102,7 +102,7 @@ describe('timepicker', function() {
       $(elm[0]).find('span:first').click();
       expect($(elm[0]).find('input:first').val()).toBe('16:00');
 
-      $(elm[0]).find('span:last').click();
+      $(elm[0]).find('span.timepicker-earlier').click();
       expect($(elm[0]).find('input:first').val()).toBe('15:59');
 
     });
