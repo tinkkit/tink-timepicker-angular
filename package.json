@@ -1,7 +1,7 @@
 {
   "name": "tink-timepicker-angular",
   "description": "Tink timepicker Angular directive",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "repository": {
     "type": "git",
     "url": "git@github.com:tinkkit/tink-timepicker-angular.git"
