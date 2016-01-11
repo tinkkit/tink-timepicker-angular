@@ -386,10 +386,10 @@
           current.hour.start =  true;
           current.min.start = true;
           setValue();
-        }else if(angular.isDate(date) && date !== 'Invalid Date'){
+        }else if(angular.isDate(date) && date != 'Invalid Date'){
           hour = date.getHours();
           minute = date.getMinutes();
-        }else if(angular.isDate(new Date(date)) && new Date(date) !== 'Invalid Date'){
+        }else if(angular.isDate(new Date(date)) && new Date(date) != 'Invalid Date'){
           hour = new Date(date).getHours();
           minute = new Date(date).getMinutes();
         }else if(date !== 'Invalid Date' && typeof date === 'string'  && date.length >= 5){
