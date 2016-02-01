@@ -15,10 +15,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 -->
 
 
-## [1.1.0] - 2015-12-15
+## [1.1.0] - 2016-02-01
 
 ### Added
 - Added possibility to clear timepicker
+
+
+
+## [1.0.9] - 2015-12-15
+
+### Fixed
+- Fixed invalid date check
 
 
 
