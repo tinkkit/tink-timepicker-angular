@@ -238,7 +238,9 @@
 
       scope.setNull = function(){
         if(!attr.disabled && attr.disabled !== ''){
-          scope.ngModel = null;
+          if(Object.prototype.toString.call(scope.ngModel) === '[object Date]'){
+              scope.ngModel.setHours(0,0,0,0);
+          }
         }
       };
 
@@ -414,7 +416,7 @@
           current.min.num = minute;
           setValue();
          }
-      });
+      },true);
 
         //format text going to user (model to view)
       $(inputField).controller('ngModel').$formatters.push(function(value) {
