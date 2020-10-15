@@ -11,9 +11,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Deprecated
 ### Removed
 ### Fixed
-- Fixed entering time (when tabbed into control) should start with hours
 ### Security
 -->
+
+
+## [2.0.1] - 2020-10-15
+
+### Fixed
+- Fixed entering time (when tabbed into control) should start with hours
+
 
 
 ## [2.0.0] - 2016-03-29
