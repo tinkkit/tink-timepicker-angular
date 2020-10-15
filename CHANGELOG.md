@@ -15,6 +15,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 -->
 
 
+## [2.0.0] - 2016-03-29
+
+### Added
+- Minimum date check
+- Visibility toggle for clear button
+
+
+
 ## [1.1.0] - 2016-02-01
 
 ### Added
