@@ -80,10 +80,10 @@
           });
             var keycode = e.which;
             if((keycode > 47 && keycode <58) || (keycode >95 && keycode <106)){
-              if(selected === 1){
-                handleHour(keycode);
-              }else{
+              if(selected === 2){
                 handleMinute(keycode);
+              }else{
+                handleHour(keycode);
               }
             }else if(keycode === 39 && selected === 1){
               selectMinute(true);
@@ -105,7 +105,6 @@
             if(keycode !== 9){
               return false;
             }
-
         });
       };
 
@@ -393,10 +392,10 @@
           current.hour.start =  true;
           current.min.start = true;
           setValue();
-        }else if(angular.isDate(date) && date != 'Invalid Date'){
+        }else if(angular.isDate(date) && date !== 'Invalid Date'){
           hour = date.getHours();
           minute = date.getMinutes();
-        }else if(angular.isDate(new Date(date)) && new Date(date) != 'Invalid Date'){
+        }else if(angular.isDate(new Date(date)) && new Date(date) !== 'Invalid Date'){
           hour = new Date(date).getHours();
           minute = new Date(date).getMinutes();
         }else if(date !== 'Invalid Date' && typeof date === 'string'  && date.length >= 5){
@@ -459,13 +458,13 @@
 
 
       inputField.on('blur', function() {
-            safeApply(scope,function(){
+        safeApply(scope,function(){
 
-        var time = inputField.val();
-        var hour = parseInt(time.substr(0,2));
-        var minute = parseInt(time.substr(3,2));
-        if(hour !== null && minute !== null && angular.isDefined(hour) && angular.isDefined(minute) && !isNaN(hour) && !isNaN(minute)){
-          var returnObj;
+          var time = inputField.val();
+          var hour = parseInt(time.substr(0,2));
+          var minute = parseInt(time.substr(3,2));
+          if(hour !== null && minute !== null && angular.isDefined(hour) && angular.isDefined(minute) && !isNaN(hour) && !isNaN(minute)){
+            var returnObj;
             if(angular.isDate(scope.ngModel)){
               returnObj = new Date(scope.ngModel);
             }else{
@@ -476,19 +475,20 @@
             if(isNative && isDateSupported()){
               returnObj.setHours(hour);
               returnObj.setMinutes(minute);
-            /*var timeStr = hourString()+':'+minString()+':00';
-            timeStr.replace('-','0');*/
-            //ngModel.$setViewValue(timeStr);
-          }else{
-            //ngModel.$setViewValue(hourString()+':'+minString());
-          }
+              /*var timeStr = hourString()+':'+minString()+':00';
+              timeStr.replace('-','0');*/
+              //ngModel.$setViewValue(timeStr);
+            }else{
+              //ngModel.$setViewValue(hourString()+':'+minString());
+            }
             ngModel.$setViewValue(returnObj);
-        }
-
-            });
-          });
-
-
+          }
+          // reset state so next time the input field gets focus the hour can be entered first
+          selected = -1;
+          current.hour.reset = true;
+          current.min.reset = true;
+        });
+      });
     }
   };
 }]);
